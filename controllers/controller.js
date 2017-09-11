@@ -1,13 +1,20 @@
+// ===========================================================
 // Node dependencies
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+
+// make http request for html page
 const request = require('request');
+
+// parses html and helps find elements
 const cheerio = require('cheerio');
 
 // article and comment models
 const article = require('../models/article.js');
 const comment = require('../models/comment.js');
+
+// ===========================================================
 
 // renders index page
 router.get('/', function (req, res){
@@ -44,5 +51,45 @@ router.get('/articles', function (req, res){
 
 // route for web scraping
 router.get('/scrape', function (req, res){
-	
+
+	// grabs body of html using request
+	request('http://www.reddit.com/', function (err, res, html) {
+
+		// loads html to cheerio. save to $ as shorthand selector
+		const $ = cheerio.load(html);
+
+		// grabs whatever has a class of "inner" with each article tag
+		$('article .inner').each(function(i, element){
+
+			// empty array for storing results
+			const results = [];
+
+			// collect article title in "h2" of header
+			result.title = $(this).children('header').children('h2').text().trim() + ""; 
+
+			// collect article link
+			result.link = 'http://www.reddit.com/' + $(this).children('header').children('h2').children('a').attr('href').trim();
+
+			result.summary = $(this).children('div').text().trim() + "";
+
+			article.count({ title: result.title}, function (err, test){
+
+				if (test == 0){
+
+					const entry = new article (result)
+
+					entry.save(function(err, doc){
+
+						if (err){
+							console.log(err);
+						} else {
+							console.log(doc);
+						}
+					});
+				}
+			})
+		})
+
+	})
+
 })
