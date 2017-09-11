@@ -70,22 +70,32 @@ router.get('/scrape', function (req, res){
 			// collect article link
 			result.link = 'http://www.reddit.com/' + $(this).children('header').children('h2').children('a').attr('href').trim();
 
+			// collect article summary
 			result.summary = $(this).children('div').text().trim() + "";
 
+			// add entry to db if doesn't already exist
 			article.count({ title: result.title}, function (err, test){
 
+				// if count is 0, it means the entry is unique
 				if (test == 0){
 
+					// create new entry
 					const entry = new article (result)
 
+					// save to mongoDB
 					entry.save(function(err, doc){
 
+						// error handling
 						if (err){
 							console.log(err);
 						} else {
 							console.log(doc);
 						}
 					});
+				} 
+						//
+						else {
+							console.log('Content already in database, will not be saved.')
 				}
 			})
 		})
