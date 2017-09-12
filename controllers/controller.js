@@ -93,13 +93,45 @@ router.get('/scrape', function (req, res){
 						}
 					});
 				} 
-						//
+						// logs successful scrape, but content already in database
 						else {
 							console.log('Content already in database, will not be saved.')
 				}
 			})
 		})
 
-	})
+		// redirect to articles page
+		res.redirect('/articles');
 
-})
+	});
+
+});
+
+// route for adding a comment (API)
+router.post('/add/comment/:id'), function (req,res){
+
+	// article id
+	const articleId = req.params.id;
+
+	// author name
+	const commentAuthor = req.body.name;
+
+	// store comment
+	const commentContent = req.body.comment;
+
+	const result = {
+		author: commentAuthor,
+		content: commentContent
+	};
+
+	const entry = new Comment (result);
+
+	// save to database
+	entry.save(function(err, doc){
+		if (err) {
+			console.log(err);
+		} else {
+			article.
+		}
+	})
+}
