@@ -108,7 +108,7 @@ router.get('/scrape', function (req, res){
 });
 
 // route for adding a comment (API)
-router.post('/add/comment/:id'), function (req,res){
+router.post('/add/comment/:id', function (req,res){
 
 	// article id
 	const articleId = req.params.id;
@@ -124,6 +124,7 @@ router.post('/add/comment/:id'), function (req,res){
 		content: commentContent
 	};
 
+	// use Comment model to create a new comment entry
 	const entry = new Comment (result);
 
 	// save to database
@@ -131,7 +132,36 @@ router.post('/add/comment/:id'), function (req,res){
 		if (err) {
 			console.log(err);
 		} else {
-			article.
+			Article.findOneAndUpdate({'_id': articleId}, {$push: {'comennts':doc._id}}, {new: true})
+		.exec(function(err, doc){
+			if (err){
+				console.log(err);
+			} else {
+				res.sendStatus(200);
+			}
+		});
 		}
-	})
-}
+	});
+
+});
+
+// route for deleting a comment
+router.post('/remove/comment/:id', function (req, res){
+
+	// collect id of comment
+	const commentId = req.params.id;
+
+	// find and deelte comment using id
+	Comment.findByIdAndRemove(commentId, function (err, todo){
+		if (err) {
+			console.log(err);
+		}
+		else {
+			res.sendStatus(200);
+		}
+	});
+
+});
+
+// export router to server.js
+module.exports = router;
