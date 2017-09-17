@@ -73,4 +73,33 @@ module.exports = function(router) {
 		});
 	});
 
-}
+	// route for handling getting notes
+	router.get('/api/notes/:headline_id', function(req, res){
+    const query = { _id: req.params.headline_id };
+
+    	// get notes that match query using notesController get method
+    	notesController.get(query, function(err, data){
+    		// send note data back to user as JSON
+    		res.json(data);
+    	});
+	});
+
+	// route for deleting note of particular note id
+	router.delete('/api/notes/:id', function (req, res){
+		const query = {_id: req.params.id };
+
+		// checks articles, sort by id 
+		notesController.delete(query, function(err, data){
+			// send article data as json
+			res.json(data);
+		});
+	});
+
+	// route for saving new note
+	router.post('/api/notes', function(req, res){
+		notesController.save(req.body, function(data){
+			// send note to browser as json
+			res.json(data);
+		});
+	});
+};
