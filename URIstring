@@ -1,7 +1,0 @@
-MONGODB_URI: mongodb://heroku_0fcp6z28:gqhg94lau7ocpjj49slh5rn5r4@ds133104.mlab.com:33104/heroku_0fcp6z28
-
-Scrape from website
-save those articles
-save comments to those articles
-remove comments
-remove saved articles
