@@ -44,7 +44,33 @@ module.exports = function(router) {
 
 	// route for deleting specified headline
 	router.delete('/api/headlines/:id', function (req, res){
+		// set _id property of query object to id in req.params
 		const query = { _id: req.params.id};
-	})
+
+		// run headlinesController delete method, pass query object
+		headlinesController.delete(query, function(err, data){
+			//send result in JSON format for client-side handling
+			res.json(data);
+		});
+	});
+
+	// route for updating headline and saving
+	router.put('/api/headlines', function (req, res){
+		
+		// contructs query object to send to headlinesController
+		headlinesController.update(req.body, function(err, data){
+			// send result back to user as json
+			res.json(data);
+		});
+	});
+
+	// route for getting notes for particular headline id
+	router.get('/api/notes/', function(req, res){
+		// gets all notes
+		notesController.get({}. function(err, data){
+			// send note data back as json
+			res.json(data);
+		});
+	});
 
 }
