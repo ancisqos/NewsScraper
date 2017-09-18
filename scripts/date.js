@@ -13,7 +13,7 @@ const makeDate = function(){
 	// get full year and add to formatted date string
 	formattedDate += d.getFullYear();
 	// return formatted date
-	return formattedDate:
+	return formattedDate;
 };
 
 // export makeDate function so other backend files can use

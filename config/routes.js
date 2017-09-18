@@ -1,7 +1,7 @@
 // routes for Server
 
-const headlinesController = require('../controllers/headlines');
-const notesController = require('../controllers/notes');
+const headlinesController = require("../controllers/headlines");
+const notesController = require("../controllers/notes");
 
 module.exports = function(router) {
 	// renders homepage
@@ -67,7 +67,7 @@ module.exports = function(router) {
 	// route for getting notes for particular headline id
 	router.get('/api/notes/', function(req, res){
 		// gets all notes
-		notesController.get({}. function(err, data){
+		notesController.get({}, function(err, data){
 			// send note data back as json
 			res.json(data);
 		});
