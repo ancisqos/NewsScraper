@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	// set reference to article-container div where all dynamic content will go
 	// add event listener
-	const articleContainer = $('.article-container');
+	var articleContainer = $('.article-container');
 	$(document).on('click', '.btn.save', handleArticleSave);
 	$(document).on('click', '.scrape-new', handleArticleScrape);
 
@@ -26,7 +26,7 @@ $(document).ready(function() {
 	function renderArticles(articles){
 		// function that appends HTML containing article data to page
 		// passes array of JSON which contains articles in database
-		const articlePanels = [];
+		var articlePanels = [];
 		// pass each article JSON object to createPanel function
 		// returns bootstrap panel with article data inside
 		for (var i=0; i<articles.length; i++) {
@@ -39,7 +39,7 @@ $(document).ready(function() {
 	function createPanel(article) {
 		// function takes in single JSON object for aticle
 		// constructs jQuery element with all formatted HTML for article panel
-		const panel = $(
+		var panel = $(
 			[
 		       	"<div class='panel panel-default'>",
 		        "<div class='panel-heading'>",
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
 	function renderEmpty(){
 		// function renders HTML to page explaining no articles to view
-		const emptyAlert = $(
+		var emptyAlert = $(
 			[
 				"<div class='alert alert-warning text-center'>",
 		        "<h4>There are no new articles.</h4>",
@@ -87,7 +87,7 @@ $(document).ready(function() {
 
 	function handleArticleSave() {
 		// function is triggered when user wants to save article
-		const articleToSave = $(this).parents('.panel').data();
+		var articleToSave = $(this).parents('.panel').data();
 		articleToSave.saved = true;
 
 		$.ajax({

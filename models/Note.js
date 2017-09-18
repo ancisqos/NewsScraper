@@ -1,12 +1,12 @@
 // note model
 
 // require mongoose
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 // create schema class using mongoose's schema method
-const Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 // create noteSchema with schema object
-const noteSchema = new Schema({
+var noteSchema = new Schema({
 	// headline is article associated with the note
 	_headlineId: {
 		type: Schema.Types.ObjectId,
@@ -20,6 +20,6 @@ const noteSchema = new Schema({
 
 // create Note model using noteSchema
 
-const Note = mongoose.model('Note', noteSchema);
+var Note = mongoose.model('Note', noteSchema);
 
 module.exports = Note;

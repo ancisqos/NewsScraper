@@ -1,11 +1,11 @@
 // makeDate script
 
 // function that makes formatted date for scraped data
-const makeDate = function(){
+var makeDate = function(){
 	//save current date to d
-	const d = new Date();
+	var d = new Date();
 	// prepare empty string for formatted state
-	const formattedDate = "";
+	var formattedDate = "";
 	// take string and concatenate current month of d
 	formattedDate += (d.getMonth() + 1) + "_";
 	// get number of day in month from d and concatenate it to formatted date string

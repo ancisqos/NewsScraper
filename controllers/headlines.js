@@ -1,11 +1,11 @@
 // controller for headlines
 
 // require scrape and makeDate scripts
-const scrape = require('../scripts/scrape');
-const makeDate = require('../scripts/date');
+var scrape = require('../scripts/scrape');
+var makeDate = require('../scripts/date');
 
 // require headline and note mongoose models
-const Headline = require('../models/Headline');
+var Headline = require('../models/Headline');
 
 module.exports = {
 	fetch: function(cb) {
@@ -13,7 +13,7 @@ module.exports = {
 		// run scrape function
 		scrape(function(data){
 			// data is array of article objects with headlines and summaries
-			const articles = data;
+			var articles = data;
 			// makes sure each article object has date and not saved by default
 			for (var i=0; i<articles.length; i++) {
 				articles[i].date = makeDate();

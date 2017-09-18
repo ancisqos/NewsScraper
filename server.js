@@ -1,19 +1,19 @@
 // Web Scraper
 
 // dependencies
-const express = require('express');
-const mongoose = require('mongoose');
-const expressHandlebars = require('express-handlebars');
-const bodyParser = require('body-parser');
+var express = require('express');
+var mongoose = require('mongoose');
+var expressHandlebars = require('express-handlebars');
+var bodyParser = require('body-parser');
 
 // set up port to be either host's designated port or 3000
-const PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
 // instantiate express app
-const app = express();
+var app = express();
 
 // set up express router
-const router = express.Router();
+var router = express.Router();
 
 // require routes file pass router object
 require('./config/routes')(router);
@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({
 app.use(router);
 
 // if deployed, use deployed database. otherwise use local mongoHeadlines database
-const db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 // connect mongoose to database
 mongoose.connect(db, function(error){

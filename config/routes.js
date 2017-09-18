@@ -1,7 +1,7 @@
 // routes for Server
 
-const headlinesController = require("../controllers/headlines");
-const notesController = require("../controllers/notes");
+var headlinesController = require("../controllers/headlines");
+var notesController = require("../controllers/notes");
 
 module.exports = function(router) {
 	// renders homepage
@@ -45,7 +45,7 @@ module.exports = function(router) {
 	// route for deleting specified headline
 	router.delete('/api/headlines/:id', function (req, res){
 		// set _id property of query object to id in req.params
-		const query = { _id: req.params.id};
+		var query = { _id: req.params.id};
 
 		// run headlinesController delete method, pass query object
 		headlinesController.delete(query, function(err, data){
@@ -75,7 +75,7 @@ module.exports = function(router) {
 
 	// route for handling getting notes
 	router.get('/api/notes/:headline_id', function(req, res){
-    const query = { _id: req.params.headline_id };
+    var query = { _id: req.params.headline_id };
 
     	// get notes that match query using notesController get method
     	notesController.get(query, function(err, data){
@@ -86,7 +86,7 @@ module.exports = function(router) {
 
 	// route for deleting note of particular note id
 	router.delete('/api/notes/:id', function (req, res){
-		const query = {_id: req.params.id };
+		var query = {_id: req.params.id };
 
 		// checks articles, sort by id 
 		notesController.delete(query, function(err, data){

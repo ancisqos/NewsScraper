@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  const articleContainer = $(".article-container");
+  var articleContainer = $(".article-container");
   // Adding event listeners for dynamically generated buttons for deleting articles,
   $(document).on("click", ".btn.delete", handleArticleDelete);
   $(document).on("click", ".btn.notes", handleArticleNotes);
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
   function renderArticles(articles) {
     // function handles appending HTML containing article data to page
-    const articlePanels = [];
+    var articlePanels = [];
     // pass each article JSON object to the createPanel function
     for (var i = 0; i < articles.length; i++) {
       articlePanels.push(createPanel(articles[i]));
@@ -38,7 +38,7 @@ $(document).ready(function() {
   function createPanel(article) {
     // function takes in single JSON object for article/headline
     // constructs a jQuery element containing all of formatted HTML for article panel
-    const panel = $(
+    var panel = $(
       [
         "<div class='panel panel-default'>",
         "<div class='panel-heading'>",
@@ -66,7 +66,7 @@ $(document).ready(function() {
 
   function renderEmpty() {
     // function renders HTML to page explaining we don't have any articles to view
-    const emptyAlert = $(
+    var emptyAlert = $(
       [
         "<div class='alert alert-warning text-center'>",
         "<h4>Looks like we don't have any saved articles.</h4>",
@@ -88,8 +88,8 @@ $(document).ready(function() {
   function renderNotesList(data) {
     // function handles rendering note list items to notes modal
     // Setting up an array of notes to render after finished
-    const notesToRender = [];
-    const currentNote;
+    var notesToRender = [];
+    var currentNote;
     if (!data.notes.length) {
       // If we have no notes, display a message explainng this
       currentNote = ["<li class='list-group-item'>", "No notes for this article yet.", "</li>"].join("");
@@ -120,7 +120,7 @@ $(document).ready(function() {
   function handleArticleDelete() {
     // function handles deleting articles/headlines
     // grab id of the article to delete from the panel element the delete button sits inside
-    const articleToDelete = $(this).parents(".panel").data();
+    var articleToDelete = $(this).parents(".panel").data();
 
     $.ajax({
       method: "DELETE",
@@ -136,11 +136,11 @@ $(document).ready(function() {
   function handleArticleNotes() {
     // function handles opending notes modal and displaying notes
     // grab id of the article to get notes from the panel element the delete button sits in
-    const currentArticle = $(this).parents(".panel").data();
+    var currentArticle = $(this).parents(".panel").data();
     // Grab notes with this headline/article id
     $.get("/api/notes/" + currentArticle._id).then(function(data) {
       // Constructing initial HTML to add to notes modal
-      const modalText = [
+      var modalText = [
         "<div class='container-fluid text-center'>",
         "<h4>Notes For Article: ",
         currentArticle._id,
@@ -157,7 +157,7 @@ $(document).ready(function() {
         message: modalText,
         closeButton: true
       });
-      const noteData = {
+      var noteData = {
         _id: currentArticle._id,
         notes: data || []
       };
@@ -173,8 +173,8 @@ $(document).ready(function() {
     // function handles what happens when a user tries to save a new note for an article
     // Setting a variable to hold some formatted data about our note
     // grabbing the note typed into the input box
-    const noteData;
-    const newNote = $(".bootbox-body textarea").val().trim();
+    var noteData;
+    var newNote = $(".bootbox-body textarea").val().trim();
    
     if (newNote) {
       noteData = {

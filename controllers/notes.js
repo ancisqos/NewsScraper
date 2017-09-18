@@ -1,7 +1,7 @@
 // controller for notes
 
-const Note = require("../models/Note");
-const makeDate = require("../scripts/date");
+var Note = require("../models/Note");
+var makeDate = require("../scripts/date");
 
 module.exports = {
   get: function(data, cb) {
@@ -15,7 +15,7 @@ module.exports = {
   save: function(data, cb) {
 
     // Make a newNote with the note model, saving the apropos info
-    const newNote = {
+    var newNote = {
       _headlineId: data._id,
       date: makeDate(),
       noteText: data.noteText
