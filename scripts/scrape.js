@@ -1,8 +1,8 @@
 // scrape script
 
 // require request and cheerio for scraping
-var request = ('request');
-const cheerio = ('cheerio');
+const request = require('request');
+const cheerio = require('cheerio');
 
 // function scrapes reddit website. cb is callback.
 const scrape = function(cb) {
