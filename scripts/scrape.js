@@ -4,7 +4,7 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
-// function scrapes reddit website. cb is callback.
+// function scrapes zergnet website. cb is callback.
 var scrape = function(cb) {
 	// use request package to take body of page's html
 	request ("http://zergnet.com/", function(err, res, html) {
@@ -26,7 +26,7 @@ var scrape = function(cb) {
 
 		      // grab any children with span and grab its inner text
 		      // store this to the sum variable. This is the article summary
-		      var sum = $(this).children(".text").text().trim();
+		      var sum = $(this).children("span").text().trim();
 
 		      // So long as our headline and sum and url aren't empty or undefined, do the following
 		      if (head && sum && url) {
