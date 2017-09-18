@@ -7,7 +7,7 @@ var cheerio = require('cheerio');
 // function scrapes reddit website. cb is callback.
 var scrape = function(cb) {
 	// use request package to take body of page's html
-	request ("https://www.nytimes.com/", function(err, res, body) {
+	request ("https://www.allaboutthejersey.com", function(err, res, body) {
 		// body is actual HTML on page. load into cheerio
 
 		// saving to $ creates virtual HTML page
