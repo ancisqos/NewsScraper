@@ -7,7 +7,7 @@ const cheerio = ('cheerio');
 // function scrapes reddit website. cb is callback.
 const scrape = function(cb) {
 	// use request package to take body of page's html
-	request('http://www.reddit.com', function(err, res, body) {
+	request('https://www.reddit.com', function(err, res, body) {
 		// body is actual HTML on page. load into cheerio
 
 		// saving to $ creates virtual HTML page
