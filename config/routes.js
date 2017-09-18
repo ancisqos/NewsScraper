@@ -3,21 +3,23 @@
 var headlinesController = require("../controllers/headlines");
 var notesController = require("../controllers/notes");
 
-module.exports = function(router) {
+module.exports = function(app) {
 	// renders homepage
-	router.get('/', function(req, res){
+	app.get('/', function(req, res){
 		res.render('home');
 	});
 
 	// renders saved handlebars page
-	router.get('/saved', function(req, res) {
+	app.get('/saved', function(req, res) {
 		res.render('saved');
 	});
 
 	// handles scraping articles to add to database
-	router.get('/api/fetch', function(req, res) {
+	app.get('/api/fetch', function(req, res) {
+		console.log("We are scraping")
 		// method inside headlinesController will scrap new articles, save unique to db
 		headlinesController.fetch(function(err, docs){
+			//console.log(docs);
 			// if no articles, send this message
 			if (!docs || docs.insertedCount === 0) {
 				res.json({
@@ -34,7 +36,7 @@ module.exports = function(router) {
 	});
 
 	// route that gets all headlines from database
-	router.get('/api/headlines', function(req, res){
+	app.get('/api/headlines', function(req, res){
 		// run headlinesController method, pass in
 		headlinesController.get(req.query, function(data){
 			// send article data back in JSON format
@@ -43,7 +45,7 @@ module.exports = function(router) {
 	});
 
 	// route for deleting specified headline
-	router.delete('/api/headlines/:id', function (req, res){
+	app.delete('/api/headlines/:id', function (req, res){
 		// set _id property of query object to id in req.params
 		var query = { _id: req.params.id};
 
@@ -55,7 +57,7 @@ module.exports = function(router) {
 	});
 
 	// route for updating headline and saving
-	router.put('/api/headlines', function (req, res){
+	app.put('/api/headlines', function (req, res){
 		
 		// contructs query object to send to headlinesController
 		headlinesController.update(req.body, function(err, data){
@@ -65,7 +67,7 @@ module.exports = function(router) {
 	});
 
 	// route for getting notes for particular headline id
-	router.get('/api/notes/', function(req, res){
+	app.get('/api/notes/', function(req, res){
 		// gets all notes
 		notesController.get({}, function(err, data){
 			// send note data back as json
@@ -74,7 +76,7 @@ module.exports = function(router) {
 	});
 
 	// route for handling getting notes
-	router.get('/api/notes/:headline_id', function(req, res){
+	app.get('/api/notes/:headline_id', function(req, res){
     var query = { _id: req.params.headline_id };
 
     	// get notes that match query using notesController get method
@@ -85,7 +87,7 @@ module.exports = function(router) {
 	});
 
 	// route for deleting note of particular note id
-	router.delete('/api/notes/:id', function (req, res){
+	app.delete('/api/notes/:id', function (req, res){
 		var query = {_id: req.params.id };
 
 		// checks articles, sort by id 
@@ -96,7 +98,7 @@ module.exports = function(router) {
 	});
 
 	// route for saving new note
-	router.post('/api/notes', function(req, res){
+	app.post('/api/notes', function(req, res){
 		notesController.save(req.body, function(data){
 			// send note to browser as json
 			res.json(data);

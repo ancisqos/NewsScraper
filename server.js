@@ -12,11 +12,8 @@ var PORT = process.env.PORT || 3000;
 // instantiate express app
 var app = express();
 
-// set up express router
-var router = express.Router();
-
 // require routes file pass router object
-require('./config/routes')(router);
+require('./config/routes')(app);
 
 // designate public folder as static directory
 app.use(express.static(__dirname + '/public'));
@@ -32,8 +29,6 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }));
 
-// have all requests go through router middle ware
-app.use(router);
 
 // if deployed, use deployed database. otherwise use local mongoHeadlines database
 var db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
