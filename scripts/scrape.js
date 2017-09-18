@@ -26,7 +26,7 @@ var scrape = function(cb) {
 
 		      // grab any children with span and grab its inner text
 		      // store this to the sum variable. This is the article summary
-		      var sum = $(this).children("span").text().trim();
+		      var sum = $(this).children(".text").text().trim();
 
 		      // So long as our headline and sum and url aren't empty or undefined, do the following
 		      if (head && sum && url) {
